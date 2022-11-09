@@ -9,21 +9,28 @@ fn main() {
 
     println!("The secret number is {secret_number}");
 
-    println!("Please input your guess.");
+    loop {
+        println!("Please input your guess");
 
-    // mut for mutable variables
-    let mut guess = String::new();
+        let mut guess = String::new();
 
-    io::stdin().read_line(&mut guess).expect("failed to read line");
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("failed to read line");
 
-    let guess: u32 = guess.trim().parse().expect("Please type a number!");
-    // std rust string formatting
-    println!("You guessed: {guess}");
+        let guess: u32 = guess
+            .trim()
+            .parse()
+            .expect("Please type a number");
 
-    // matches are made of arms
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small"),
-        Ordering::Greater => println!("Too big"),
-        Ordering::Equal => println!("You win"),
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small"),
+            Ordering::Greater => println!("Too big"),
+            Ordering::Equal => {
+                println!("you win!");
+                break;
+            }
+            
+        }
     }
 }
